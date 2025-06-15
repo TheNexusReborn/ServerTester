@@ -83,13 +83,13 @@ public class ServerTester {
         Path newStarItemsFile = getPluginFile(starItemsDir, "StarItems");
         
         try {
-            Files.copy(newNexusCoreFile, newPluginPath(pluginsDir, newNexusCoreFile));
-            Files.copy(newNexusHubFile, newPluginPath(pluginsDir, newNexusHubFile));
-            Files.copy(newNexusMapsFile, newPluginPath(pluginsDir, newNexusMapsFile));
-            Files.copy(newNexusSGFile, newPluginPath(pluginsDir, newNexusSGFile));
-            Files.copy(newStarChatFile, newPluginPath(pluginsDir, newStarChatFile));
-            Files.copy(newStarCoreFile, newPluginPath(pluginsDir, newStarCoreFile));
-            Files.copy(newStarItemsFile, newPluginPath(pluginsDir, newStarItemsFile));
+            Files.copy(newNexusCoreFile, newPluginPath(pluginsDir, newNexusCoreFile), StandardCopyOption.REPLACE_EXISTING);
+            Files.copy(newNexusHubFile, newPluginPath(pluginsDir, newNexusHubFile), StandardCopyOption.REPLACE_EXISTING);
+            Files.copy(newNexusMapsFile, newPluginPath(pluginsDir, newNexusMapsFile), StandardCopyOption.REPLACE_EXISTING);
+            Files.copy(newNexusSGFile, newPluginPath(pluginsDir, newNexusSGFile), StandardCopyOption.REPLACE_EXISTING);
+            Files.copy(newStarChatFile, newPluginPath(pluginsDir, newStarChatFile), StandardCopyOption.REPLACE_EXISTING);
+            Files.copy(newStarCoreFile, newPluginPath(pluginsDir, newStarCoreFile), StandardCopyOption.REPLACE_EXISTING);
+            Files.copy(newStarItemsFile, newPluginPath(pluginsDir, newStarItemsFile), StandardCopyOption.REPLACE_EXISTING);
         } catch (Exception e) {
             System.err.println("Error while copying new files");
             e.printStackTrace();
