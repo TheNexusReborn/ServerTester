@@ -25,3 +25,5 @@ java {
 application {
     mainClass = 'com.thenexusreborn.servertester.ServerTester'
 }
+
+tasks.compileJava.dependsOn(clean)

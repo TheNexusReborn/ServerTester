@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Properties;
 import java.util.stream.Stream;
 
-public class ServerTester {
+public final class ServerTester {
     public static void main(String[] args) {
         Path propertiesFile = Path.of("tester.properties");
         if (!Files.exists(propertiesFile)) {
@@ -126,7 +126,30 @@ public class ServerTester {
     
     public static Path getPluginFile(Path dir, String name) {
         try (Stream<Path> stream = Files.walk(dir)) {
-            List<Path> results = stream.filter(p -> !Files.isDirectory(p)).filter(p -> p.getFileName().toString().startsWith(name)).toList();
+            List<Path> results = stream.filter(p -> !Files.isDirectory(p)).filter(p -> {
+                String fileName = p.getFileName().toString();
+                int extensionIndex = fileName.lastIndexOf('.');
+                if (extensionIndex <= 0) {
+                    return false;
+                }
+                
+                String extension = fileName.substring(extensionIndex);
+                
+                if (!extension.equalsIgnoreCase(".jar")) {
+                    return false;
+                }
+                
+                if (!fileName.startsWith(name)) {
+                    return false;
+                }
+                
+                if (fileName.contains("javadoc")) {
+                    return false;
+                }
+                
+                return !fileName.contains("sources");
+            }).toList();
+            
             if (!results.isEmpty()) {
                 return results.getFirst();
             }
