@@ -1,7 +1,6 @@
 package com.thenexusreborn.servertester;
 
 import java.io.*;
-import java.lang.ProcessBuilder.Redirect;
 import java.nio.file.*;
 import java.util.List;
 import java.util.Properties;
@@ -97,11 +96,9 @@ public final class ServerTester {
         }
         
         String serverJarName = properties.getProperty("serverJarFile");
-        ProcessBuilder processBuilder = new ProcessBuilder("java", "-Xmx4G", "-jar", serverJarName, "nogui");
+        ProcessBuilder processBuilder = new ProcessBuilder("java", "-Xmx4G", "--enable-native-access=ALL-UNNAMED", "--add-opens", "java.base/java.lang=ALL-UNNAMED", "-jar", serverJarName, "nogui");
         processBuilder.directory(serverDir.toFile());
-        processBuilder.redirectOutput(Redirect.INHERIT);
-        processBuilder.redirectError(Redirect.INHERIT);
-        processBuilder.redirectInput(Redirect.INHERIT);
+        processBuilder.inheritIO();
         try {
             Process process = processBuilder.start();
             int exitCode = process.waitFor();
